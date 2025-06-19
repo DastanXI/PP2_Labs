@@ -1,0 +1,21 @@
+
+import sample_json
+#1 load and parse the JSON file
+with open('sample-data.json') as f:
+    data = sample_json.load(f)
+
+#2 print header
+print("Interface Status")
+print("=" * 79)
+print("{:<50} {:<20} {:<8} {:<6}".format("DN", "Description", "Speed", "MTU"))
+print("-" * 79)
+
+#3 iterate and print each interface
+for item in data["imdata"]:
+    attributes = item["l1PhysIf"]["attributes"]
+    dn = attributes.get("dn", "")
+    descr = attributes.get("descr", "")
+    speed = attributes.get("speed", "")
+    mtu = attributes.get("mtu", "")
+    
+    print("{:<50} {:<20} {:<8} {:<6}".format(dn, descr, speed, mtu))
